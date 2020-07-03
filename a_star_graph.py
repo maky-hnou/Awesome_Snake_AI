@@ -560,14 +560,6 @@ class Snake:
                 return False
         return True
 
-    def calcCost(self, point, snake):
-        print('calculating cost of point', point)
-        neibors = self.get_neighborhood(point)
-        for each in neibors:
-            if (each in snake[1:]):
-                return snake.index(each)
-        return 999
-
     def calculate_direction(self, path_):
         '''Converting point-path_ to step by step direction'''
         last_point = path_[0]
@@ -846,15 +838,6 @@ class Snake:
         # print('Drawing Edge of Discovery...')
         # time.sleep(0.05)
 
-    def section_break(self):
-        print('AAAAAAAAAAAAAAAAAAAA')
-        print('AAAAAAAAAAAAAAAAAAAA')
-        print('AAAAAAAAAAAAAAAAAAAA')
-        print('AAAAAAAAAAAAAAAAAAAA')
-        print('AAAAAAAAAAAAAAAAAAAA')
-        print('AAAAAAAAAAAAAAAAAAAA')
-        print('AAAAAAAAAAAAAAAAAAAA')
-
     def pause_game(self):
         pause = True
         while (pause):
@@ -862,16 +845,6 @@ class Snake:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         pause = False
-
-    def opposite_direction(self, direction):
-        if direction == self.up:
-            return self.down
-        elif direction == self.down:
-            return self.up
-        elif direction == self.left:
-            return self.right
-        elif direction == self.right:
-            return self.left
 
     def find_new_head(self, direction, snake):
         if direction == self.up:
@@ -914,8 +887,8 @@ class Snake:
     def show_start_screen(self):
         title_font = pygame.font.Font('freesansbold.ttf', 100)
         title_surf1 = title_font.render(
-            'Wormy!', True, self.white, self.dark_green)
-        title_surf2 = title_font.render('Wormy!', True, self.green)
+            'Awesome_Snake_AI!', True, self.white, self.dark_green)
+        title_surf2 = title_font.render('Awesome_Snake_AI!', True, self.green)
 
         degrees1 = 0
         degrees2 = 0
@@ -923,14 +896,14 @@ class Snake:
             self.display_surf.fill(self.bg_color)
             rotated_surf1 = pygame.transform.rotate(title_surf1, degrees1)
             rotated_rect1 = rotated_surf1.get_rect()
-            rotated_rect1.center = (self.window_width / 2,
-                                    self.window_height / 2)
+            rotated_rect1.center = (int(self.window_width / 2),
+                                    int(self.window_height / 2))
             self.display_surf.blit(rotated_surf1, rotated_rect1)
 
             rotated_surf2 = pygame.transform.rotate(title_surf2, degrees2)
             rotated_rect2 = rotated_surf2.get_rect()
-            rotated_rect2.center = (self.window_width / 2,
-                                    self.window_height / 2)
+            rotated_rect2.center = (int(self.window_width / 2),
+                                    int(self.window_height / 2))
             self.display_surf.blit(rotated_surf2, rotated_rect2)
 
             self.draw_press_key_msg()
@@ -1034,6 +1007,7 @@ if __name__ == '__main__':
     pygame.display.set_caption('Wormy')
     snake_ai = Snake(fps=60, window_width=1200,
                      window_height=800, cell_size=50)
+    snake_ai.show_start_screen()
     while True:
         snake_ai.run_game()
         snake_ai.show_game_over_screen()
