@@ -589,14 +589,14 @@ class Snake:
         old_snake = list(snake)
         # print(new_snake)
         path_ = self.main_calculation(snake, food, soft_calculation)
-        if (not path_):
+        if not path_:
             return []
         else:
             path_copy = list(path_)
             path_copy.reverse()
             new_snake = path_copy + old_snake
             path_out = self.main_calculation(new_snake, new_snake[-1], False)
-            if (not path_out):
+            if not path_out:
                 print('No path out, dont go for food')
                 return 'stall'
             else:
@@ -777,16 +777,12 @@ class Snake:
         list_of_no = []
         head_x = snake[0]['x']
         head_y = snake[0]['y']
-        count = 0
-        for each in snake:
-            dist = abs(each['x'] - head_x) + abs(each['y'] - head_y)
-            count_from_behind = len(snake) - count
-            count = count + 1
+        for idx, node in enumerate(snake):
+            dist = abs(node['x'] - head_x) + abs(node['y'] - head_y)
+            count_from_behind = len(snake) - idx
             if dist < (count_from_behind+1):
-                list_of_no.append(each)
+                list_of_no.append(node)
         list_of_no.extend(self.wall_coords)
-        # print ('List of No Go:')
-        # print (list_of_no)
         return list_of_no
 
     def find_wall(self):
