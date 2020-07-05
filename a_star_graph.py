@@ -565,7 +565,7 @@ class Snake:
         last_point = path_[0]
         directions = []
         next_direction = ''
-        for current_point in path_:
+        for current_point in path_[1:]:
             if (current_point['x'] > last_point['x']):
                 next_direction = self.right
             elif (current_point['x'] < last_point['x']):
@@ -576,13 +576,9 @@ class Snake:
                 elif (current_point['y'] < last_point['y']):
                     next_direction = self.up
                 else:
-                    # print ('Apple Found...')
                     continue
-            # print ('Last Point:', last_point, 'current_point:',
-            #        current_point, ' --> ', next_direction)
             last_point = current_point
             directions.append(next_direction)
-        # print (directions)
         return directions
 
     def calculate_path(self, snake, food, soft_calculation):
