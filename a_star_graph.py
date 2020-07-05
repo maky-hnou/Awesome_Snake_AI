@@ -587,7 +587,6 @@ class Snake:
 
     def calculate_path(self, snake, food, soft_calculation):
         old_snake = list(snake)
-        # print(new_snake)
         path_ = self.main_calculation(snake, food, soft_calculation)
         if not path_:
             return []
@@ -645,7 +644,6 @@ class Snake:
             if not discover_edge:
                 soft_calculation = False
                 break
-
         if not soft_calculation:
             points_to_path = []
             discover_edge = []
@@ -686,6 +684,8 @@ class Snake:
                 if not discover_edge:
                     # should start stalling since no path found
                     return []
+        # Remove duplicates
+        points_to_path = self.remove_duplicates(points_to_path)
         points_to_path.append(food)
         return points_to_path
 
@@ -724,14 +724,26 @@ class Snake:
                 list_of_no.append({'x': node['x']-1, 'y': node['y']+1})
                 list_of_no.append({'x': node['x']+1, 'y': node['y']-1})
 
+        # seen = set()
+        # new_list = []
+        # for d in list_of_no:
+        #     t = tuple(d.items())
+        #     if t not in seen:
+        #         seen.add(t)
+        #         new_list.append(d)
+        new_list = []
+        new_list = self.remove_duplicates(list_of_no)
+        new_list.extend(self.soft_wall_coords)
+        return new_list
+
+    def remove_duplicates(self, list_of_dict):
         seen = set()
         new_list = []
-        for d in list_of_no:
+        for d in list_of_dict:
             t = tuple(d.items())
             if t not in seen:
                 seen.add(t)
                 new_list.append(d)
-        new_list.extend(self.soft_wall_coords)
         return new_list
 
     def get_list_of_no(self, snake):
