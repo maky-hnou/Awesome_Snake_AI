@@ -619,28 +619,23 @@ class Snake:
         if ((food in self.soft_wall_coords) or (food in soft_list_of_no)):
             soft_calculation = False
 
-        # calculate avialable path
+        # Calculate the avialable path
         while (finding_path and soft_calculation):
             last_point = discover_edge[-1]
             new_points = self.get_neighborhood(last_point)
-            new_points = sorted(new_points,
-                                key=lambda k: self.calculate_distance(
-                                    k, food), reverse=True)  # sort new_points
+            new_points = sorted(
+                new_points, key=lambda k: self.calculate_distance(
+                    k, food), reverse=True)  # sort new_points
             nbr_of_points = len(new_points)
             for point in new_points:
                 if (point in soft_list_of_no):
-                    # print ('No Go Point:', point)
-                    nbr_of_points = nbr_of_points - 1
+                    nbr_of_points -= 1
                 elif point in exhausted_points:
-                    # print ('considered already:', point)
-                    nbr_of_points = nbr_of_points - 1
+                    nbr_of_points -= 1
                 else:
-                    # new points --> discover_edge, closest one last in
                     discover_edge.append(point)
                     points_to_path.append(last_point)
                     exhausted_points.append(last_point)
-                    # print (point)
-                # exhausted_points.append(point)
             if nbr_of_points == 0:
                 # backtrack
                 exhausted_points.append(discover_edge.pop())
@@ -651,7 +646,6 @@ class Snake:
                 soft_calculation = False
                 break
 
-        # print ('soft_calculation: ', soft_calculation)
         if not soft_calculation:
             points_to_path = []
             discover_edge = []
@@ -670,24 +664,19 @@ class Snake:
                 last_point = discover_edge[-1]
                 new_points = self.get_neighborhood(last_point)
                 # sort new_points
-                new_points = sorted(new_points,
-                                    key=lambda k: self.calculate_distance(
-                                        k, food), reverse=True)
+                new_points = sorted(
+                    new_points, key=lambda k: self.calculate_distance(
+                        k, food), reverse=True)
                 nbr_of_points = len(new_points)
                 for point in new_points:
                     if point in list_of_no:
-                        # print ('No Go Point:', point)
-                        nbr_of_points = nbr_of_points - 1
+                        nbr_of_points -= 1
                     elif point in exhausted_points:
-                        # print ('considered already:', point)
-                        nbr_of_points = nbr_of_points - 1
+                        nbr_of_points -= 1
                     else:
-                        # new points --> discover_edge, closest one last in
                         discover_edge.append(point)
                         points_to_path.append(last_point)
                         exhausted_points.append(last_point)
-                        # print (point)
-                    # exhausted_points.append(point)
                 if nbr_of_points == 0:
                     # backtrack
                     exhausted_points.append(discover_edge.pop())
@@ -696,26 +685,8 @@ class Snake:
                     finding_path = 0
                 if not discover_edge:
                     # should start stalling since no path found
-                    # print ('stalling...')
                     return []
-                '''
-          # Debugging................
-          # Draw path found
-          display_surf.fill(bg_color)
-          draw_grid()
-          draw_snake(snake)
-          # draw_edge_of_discovery(discover_edge)
-          draw_edge_of_discovery(points_to_path)
-          draw_edge_of_discovery(list_of_no)
-          draw_food(food)
-          pygame.display.update()
-          pause_game()
-          print ('points to path')
-          print (points_to_path)
-          '''
-
-        # WHEN DISCOVER EDGE IS EMPTY, TRY FIND TAIL
-        points_to_path.append(food)  # adding in the last point
+        points_to_path.append(food)
         return points_to_path
 
     def get_neighborhood(self, point):  # NOT NEGATIVE
