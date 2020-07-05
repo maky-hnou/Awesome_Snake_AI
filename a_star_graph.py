@@ -54,9 +54,7 @@ class Snake:
 
         while True:
             for event in pygame.event.get():  # event handling loop
-                if event.type == pygame.QUIT:
-                    self.terminate()
-                elif event.type == pygame.KEYDOWN:
+                if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.terminate()
             # check if the snake has hit itself or the edge
@@ -65,13 +63,10 @@ class Snake:
                 snake[self.head]['y'] == -1 or
                     snake[self.head]['y'] == self.cell_height):
                 self.terminate()
-                return  # game over
             for snake_cell in snake[1:]:
-                # sys.exit()
                 if (snake_cell['x'] == snake[self.head]['x'] and
                         snake_cell['y'] == snake[self.head]['y']):
                     self.terminate()
-                    return  # game over
 
             # check if snake has eaten an apply
             if (snake[self.head]['x'] == food['x'] and
@@ -80,9 +75,8 @@ class Snake:
                 last_food = food
                 # set a new food somewhere
                 food = self.get_random_location(snake)
-                # for testing purposes
-                self.draw_food(food, last_food)
-                # draw_food(last_food)
+
+                self.draw_food(last_food)
                 # section_break() #just print some crap
                 # calculate path to go
                 path = self.calculate_path(snake, food, True)
@@ -180,7 +174,7 @@ class Snake:
             self.display_surf.fill(self.bg_color)
             self.draw_grid()
             self.draw_snake(snake)
-            self.draw_food(food, last_food)
+            self.draw_food(food)
             self.draw_score(len(snake) - 3)
             pygame.display.update()
             self.fps_clock.tick(self.fps)
@@ -945,15 +939,11 @@ class Snake:
         pygame.draw.rect(display_surf, white, snake_segment_rect)
         '''
 
-    def draw_food(self, coord, last_food):
+    def draw_food(self, coord):
         x = coord['x'] * self.cell_size
         y = coord['y'] * self.cell_size
         food_rect = pygame.Rect(x, y, self.cell_size, self.cell_size)
         pygame.draw.rect(self.display_surf, self.red, food_rect)
-        # x1 = last_food['x'] * cell_size
-        # y1 = last_food['y'] * cell_size
-        # food_rect = pygame.Rect(x1, y1, cell_size, cell_size)
-        # pygame.draw.rect(display_surf, red, food_rect)
 
     def draw_grid(self):
         return  # do nothing
