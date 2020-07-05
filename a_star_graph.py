@@ -611,7 +611,6 @@ class Snake:
         finding_path = True  # false
         list_of_no = self.get_list_of_no(snake)
         soft_list_of_no = self.get_soft_list_of_no(snake)
-        soft_list_of_no.extend(self.soft_wall_coords)
         discover_edge.append(snake[0])
         exhausted_points.append(snake[0])
         last_point = discover_edge[-1]
@@ -737,33 +736,23 @@ class Snake:
 
     def get_soft_list_of_no(self, snake):
         list_of_no = []
-        list_of_no.extend(self.get_snake_surroundings(snake))
-        # list_of_no.extend(soft_wall_coords)
-        # remove duplicates
-        return list_of_no
-
-    def get_snake_surroundings(self, snake):
-        list_of_no = []
         head_x = snake[0]['x']
         head_y = snake[0]['y']
-        count = 0
-        for each in snake:
-            if count == 0:
-                list_of_no.append(each)
-            else:
-                dist = abs(each['x'] - head_x) + abs(each['y']-head_y)
-                count_from_behind = len(snake) - count
-                if dist < (count_from_behind+1):
-                    list_of_no.append(each)
-                    list_of_no.append({'x': each['x']+1, 'y': each['y']})
-                    list_of_no.append({'x': each['x']-1, 'y': each['y']})
-                    list_of_no.append({'x': each['x'], 'y': each['y']+1})
-                    list_of_no.append({'x': each['x'], 'y': each['y']-1})
-                    list_of_no.append({'x': each['x']+1, 'y': each['y']+1})
-                    list_of_no.append({'x': each['x']-1, 'y': each['y']-1})
-                    list_of_no.append({'x': each['x']-1, 'y': each['y']+1})
-                    list_of_no.append({'x': each['x']+1, 'y': each['y']-1})
-            count = count + 1
+        list_of_no.append(snake[0])
+        for idx, node in enumerate(snake[1:]):
+            dist = abs(node['x'] - head_x) + abs(node['y']-head_y)
+            count_from_behind = len(snake)-1 - idx
+            if dist < (count_from_behind+1):
+                list_of_no.append(node)
+                list_of_no.append({'x': node['x']+1, 'y': node['y']})
+                list_of_no.append({'x': node['x']-1, 'y': node['y']})
+                list_of_no.append({'x': node['x'], 'y': node['y']+1})
+                list_of_no.append({'x': node['x'], 'y': node['y']-1})
+                list_of_no.append({'x': node['x']+1, 'y': node['y']+1})
+                list_of_no.append({'x': node['x']-1, 'y': node['y']-1})
+                list_of_no.append({'x': node['x']-1, 'y': node['y']+1})
+                list_of_no.append({'x': node['x']+1, 'y': node['y']-1})
+
         seen = set()
         new_list = []
         for d in list_of_no:
@@ -771,6 +760,7 @@ class Snake:
             if t not in seen:
                 seen.add(t)
                 new_list.append(d)
+        new_list.extend(self.soft_wall_coords)
         return new_list
 
     def get_list_of_no(self, snake):
