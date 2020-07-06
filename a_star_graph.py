@@ -77,7 +77,6 @@ class Snake:
                 food = self.get_random_location(snake)
 
                 self.draw_food(last_food)
-                # section_break() #just print some crap
                 # calculate path to go
                 path = self.calculate_path(snake, food, True)
                 if not path:
@@ -99,8 +98,6 @@ class Snake:
                     print('only direction:', direction)
                 else:
                     if self.safe_to_go(snake, direction, last_wall):
-                        # print('safe')
-                        # continue the previous direction
                         directions_list.append(direction)
                     elif ((not self.find_new_head(direction, snake)
                            in snake) or
@@ -127,11 +124,8 @@ class Snake:
                                         directions_list[0], snake),
                                     snake, last_wall) < 3:
                                 directions_list = [last_direction]
-                            # print(directions_list)
                     stalling_count = stalling_count - 1
-                    # print ('stalling Count:', stalling_count)
                     if stalling_count < 1:
-                        # print('stalling Count',stalling_count)
                         self.stalling = False
                         prev_last_wall = last_wall
                         last_wall = 0
@@ -149,15 +143,7 @@ class Snake:
                         else:
                             directions_list = self.calculate_direction(path)
             next_head = self.find_new_head(directions_list[0], snake)
-            '''
-            if (next_head in snake or next_head in wall_coords or next_head in
-                get_next_wall_coords(last_wall)):  #if gonig to die go
-                into tunnel
-              last_wall = 0
-              directions_list = find_next_direction(snake,
-              directions_list[0],0)
-              print('going into tunnel')
-            '''
+
             if self.stalling:
                 # return true if the area going in is too small
                 if self.area_is_too_small(self.cell_width, next_head,
@@ -185,7 +171,7 @@ class Snake:
         the_way = 0
         for each in ways:
             if each in snake:
-                count = count - 1
+                count -= 1
             else:
                 the_way = each
         if count == 1:
@@ -235,13 +221,6 @@ class Snake:
                     'y': snake[self.head]['y']}
             right = {'x': snake[self.head]['x']+1,
                      'y': snake[self.head]['y']}
-            # print('new head:', new_head)
-            # print('forward:', forward)
-            # print('forward left:', forward_left)
-            # print('forward right:', forward_right)
-            # print('left:', left)
-            # print('right:', right)
-            # sys.ewit(0)
         elif direction == self.down:
             new_head = {'x': snake[self.head]['x'],
                         'y': snake[self.head]['y'] + 1}
@@ -282,11 +261,8 @@ class Snake:
             right = {'x': snake[self.head]['x'],
                      'y': snake[self.head]['y']+1}
 
-        # print ('newhead',new_head,'no go:',list_of_no)
         if ((forward_left in list_of_no and left not in list_of_no) or
                 (forward_right in list_of_no and right not in list_of_no)):
-            # print ('forwardleft left detected', forward_left, left,
-            #        'right:', forward_right, right)
             return False
         if new_head in list_of_no:
             return False
@@ -296,7 +272,6 @@ class Snake:
         for each in ways_to_go:
             if each in list_of_no:
                 count = count - 1
-        # print (ways_to_go,count)
         if (count < 1):
             return False
         elif (count < 2 and not (forward in list_of_no)):
@@ -895,8 +870,8 @@ class Snake:
         overSurf = game_over_font.render('Over', True, self.white)
         game_rect = game_surf.get_rect()
         over_rect = overSurf.get_rect()
-        game_rect.midtop = (self.window_width / 2, 10)
-        over_rect.midtop = (self.window_width / 2, game_rect.height + 10 + 25)
+        game_rect.midtop = (self.window_width // 2, 10)
+        over_rect.midtop = (self.window_width // 2, game_rect.height + 10 + 25)
 
         self.display_surf.blit(game_surf, game_rect)
         self.display_surf.blit(overSurf, over_rect)
@@ -965,4 +940,4 @@ if __name__ == '__main__':
     snake_ai.show_start_screen()
     while True:
         snake_ai.run_game()
-        snake_ai.show_game_over_screen()
+    snake_ai.show_game_over_screen()
