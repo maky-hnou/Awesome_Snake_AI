@@ -83,18 +83,18 @@ class Snake:
     def hit_itself(self, snake, direction):
         head_x = snake[0][0]
         head_y = snake[0][1]
-
+        snake_body = snake[1:]
         if (direction == 'right'
-                and (head_x + self.block, head_y) in snake):
+                and (head_x, head_y) in snake_body):
             return True
         elif (direction == 'left'
-              and (head_x - self.block, head_y) in snake):
+              and (head_x, head_y) in snake_body):
             return True
         elif (direction == 'up'
-              and (head_x, head_y - self.block) in snake):
+              and (head_x, head_y) in snake_body):
             return True
         elif (direction == 'down'
-              and (head_x, head_y + self.block) in snake):
+              and (head_x, head_y) in snake_body):
             return True
         return False
 
