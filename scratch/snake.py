@@ -70,38 +70,6 @@ class Snake:
         snake.pop()
         return snake, direction, eaten
 
-    def eat_food(self, food, snake, direction):
-        head_x = snake[0][0]
-        head_y = snake[0][1]
-        eaten = False
-        # if head_x == food[0] and head_y == food[1]:
-        if (direction == 'right'
-            and head_x == food[0] - self.block
-                and head_y == food[1]):
-            head_x += self.block
-            snake.insert(0, food)
-            eaten = True
-        elif (direction == 'left'
-              and head_x == food[0] + self.block
-              and head_y == food[1]):
-            head_x -= self.block
-            snake.insert(0, food)
-            eaten = True
-        elif (direction == 'up'
-              and head_y == food[1] + self.block
-              and head_x == food[0]):
-            head_y -= self.block
-            snake.insert(0, food)
-            eaten = True
-        elif (direction == 'down'
-              and head_y == food[1] - self.block
-              and head_x == food[0]):
-
-            head_y += self.block
-            snake.insert(0, food)
-            eaten = True
-        return snake, eaten
-
     def hit_walls(self, snake, direction):
         head_x = snake[0][0]
         head_y = snake[0][1]
