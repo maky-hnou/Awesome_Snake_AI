@@ -103,7 +103,3 @@ class Snake:
                 or self.hit_itself(snake, direction)):
             return True
         return False
-
-        # if the food is near the head of the snake and the snake is going
-        # in the same direction of the food, then increase the size of
-        # the snake
