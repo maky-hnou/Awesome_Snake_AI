@@ -20,7 +20,7 @@ if __name__ == '__main__':
     sn = Snake(width=width, height=height, block=block)
     x_snake, y_snake = sn.get_random_location()
     snake = [(x_snake, y_snake)]
-    direction = 'right'
+    direction = ''
     eaten = True
     while True:
         # Draw scene
@@ -42,18 +42,19 @@ if __name__ == '__main__':
         for event in keys_pressed:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
-                    snake, direction, eaten = sn.turn_up(snake, food)
+                    direction = 'up'
                 elif event.key == pygame.K_DOWN:
-                    snake, direction, eaten = sn.turn_down(snake, food)
+                    direction = 'down'
                 elif event.key == pygame.K_RIGHT:
-                    snake, direction, eaten = sn.turn_right(snake, food)
+                    direction = 'right'
                 elif event.key == pygame.K_LEFT:
-                    snake, direction, eaten = sn.turn_left(snake, food)
+                    direction = 'left'
                 elif event.key == pygame.K_ESCAPE:
                     print('exit')
                     pygame.quit()
                     sys.exit(0)
-
+        snake, eaten = sn.move_snake(
+            snake=snake, direction=direction, food=food)
         if sn.is_dead(snake=snake, direction=direction):
             print('died')
             pygame.quit()
@@ -61,4 +62,5 @@ if __name__ == '__main__':
 
         scene = gr.draw_snake(scene=scene, snake=snake)
         pygame.display.update()
+        pygame.time.Clock().tick(5)
     # time.sleep(10)
