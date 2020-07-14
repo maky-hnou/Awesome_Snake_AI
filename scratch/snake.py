@@ -14,6 +14,25 @@ class Snake:
         y = self.block * round(y / self.block)
         return x, y
 
+    def move_snake(self, snake, direction, food):
+        head_x = snake[0][0]
+        head_y = snake[0][1]
+        eaten = False
+        if direction == 'right':
+            head_x += self.block
+        elif direction == 'left':
+            head_x -= self.block
+        elif direction == 'up':
+            head_y -= self.block
+        elif direction == 'down':
+            head_y += self.block
+        if head_x == food[0] and head_y == food[1]:
+            eaten = True
+        else:
+            snake.pop()
+        snake.insert(0, (head_x, head_y))
+        return snake, eaten
+
     def turn_right(self, snake, food):
         head_x = snake[0][0]
         head_y = snake[0][1]
