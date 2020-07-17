@@ -30,11 +30,14 @@ if __name__ == '__main__':
 
         scene = gr.draw_scene(scene=screen)
         if eaten:
-            x_food = random.randint(3 * block, width - 2 * block)
-            y_food = random.randint(3 * block, height - 2 * block)
-            x_food = block * round(x_food / block)
-            y_food = block * round(y_food / block)
-            food = (x_food, y_food)
+            food = ()
+            while food == ():
+                x_food = random.randint(3 * block, width - 2 * block)
+                y_food = random.randint(3 * block, height - 2 * block)
+                x_food = block * round(x_food / block)
+                y_food = block * round(y_food / block)
+                if (x_food, y_food) not in snake:
+                    food = (x_food, y_food)
             eaten = False
         gr.draw_food(scene=scene, food=food)
         # time.sleep(3)
