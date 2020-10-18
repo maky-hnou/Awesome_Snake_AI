@@ -2,15 +2,17 @@ import random
 
 
 class Snake:
-    def __init__(self, width, height, block):
+    def __init__(self, width, height, block, info_zone):
         self.width = width
         self.height = height
         self.block = block
+        self.info_zone = info_zone
 
     def get_random_location(self):
         x = random.randint(3 * self.block, self.width - 2 * self.block)
         x = self.block * round(x / self.block)
         y = random.randint(3 * self.block, self.height - 2 * self.block)
+        + self.info_zone
         y = self.block * round(y / self.block)
         return x, y
 
@@ -41,9 +43,10 @@ class Snake:
             return True
         elif (direction == 'left' and head_x == 0):
             return True
-        elif (direction == 'up' and head_y == 0):
+        elif (direction == 'up' and head_y == self.info_zone):
             return True
-        elif (direction == 'down' and head_y == self.height - self.block):
+        elif (direction == 'down' and
+              head_y == self.height + self.info_zone - self.block):
             return True
         return False
 
