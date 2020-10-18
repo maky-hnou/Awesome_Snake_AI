@@ -14,7 +14,7 @@ class Snake:
         y = self.block * round(y / self.block)
         return x, y
 
-    def move_snake(self, snake, direction, food):
+    def move_snake(self, snake, direction, food, score):
         head_x = snake[0][0]
         head_y = snake[0][1]
         eaten = False
@@ -28,10 +28,11 @@ class Snake:
             head_y += self.block
         if head_x == food[0] and head_y == food[1]:
             eaten = True
+            score += 1
         else:
             snake.pop()
         snake.insert(0, (head_x, head_y))
-        return snake, eaten
+        return snake, eaten, score
 
     def hit_walls(self, snake, direction):
         head_x = snake[0][0]
