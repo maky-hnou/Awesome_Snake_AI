@@ -8,7 +8,7 @@ from snake import Snake
 if __name__ == '__main__':
 
     bg = (170, 202, 154)
-    gray = (55, 55, 55)
+    # gray = (55, 55, 55)
     black = (0, 0, 0)
     width = 600
     height = 400
@@ -22,6 +22,7 @@ if __name__ == '__main__':
     snake = [(x_snake, y_snake)]
     direction = ''
     eaten = True
+    score = 1
     while True:
         # Draw scene
         gr = Graphic(scene_width=width, scene_height=height,
@@ -56,10 +57,10 @@ if __name__ == '__main__':
                     print('exit')
                     pygame.quit()
                     sys.exit(0)
-        snake, eaten = sn.move_snake(
-            snake=snake, direction=direction, food=food)
+        snake, eaten, score = sn.move_snake(
+            snake=snake, direction=direction, food=food, score=score)
         if sn.is_dead(snake=snake, direction=direction):
-            print('died')
+            print('died\nscore = ', score)
             pygame.quit()
             sys.exit(0)
 
