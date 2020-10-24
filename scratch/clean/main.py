@@ -8,10 +8,10 @@ if __name__ == '__main__':
     width = 600
     block = 10
     info_zone = 60
+    clock_rate = 500
     # Run data generation and get traing data
     gd = GenerateData(height=height, width=width,
-                      block=block, info_zone=info_zone)
+                      block=block, info_zone=info_zone, clock_rate=clock_rate)
     training_data_x, training_data_y = gd.generate_training_data()
     print(training_data_x)
-    print('#' * 32)
     print(training_data_x)
