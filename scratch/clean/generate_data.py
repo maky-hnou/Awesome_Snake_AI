@@ -8,15 +8,16 @@ from tqdm import tqdm
 
 
 class GenerateData:
-    def __init__(self, height, width, block, info_zone):
+    def __init__(self, height, width, block, info_zone, clock_rate):
         self.height = height
         self.width = width
         self.block = block
         self.info_zone = info_zone
         self.training_data_x = []
         self.training_data_y = []
-        self.training_games = 10
-        self.steps_per_game = 20
+        self.training_games = 1000
+        self.steps_per_game = 2000
+        self.clock_rate = clock_rate
         self.sn = Snake(self.width, self.height, self.block, self.info_zone)
 
     def generate_training_data(self):
@@ -51,7 +52,7 @@ class GenerateData:
 
                 snake, food, score = self.sn.play_game(
                     snake=snake, food=food, button_direction=button_direction,
-                    score=score, screen=screen, clock=100)
+                    score=score, screen=screen, clock=self.clock_rate)
         return self.training_data_x, self.training_data_y
 
     def calculate_angle(self, snake, food):
@@ -130,14 +131,16 @@ class GenerateData:
         next_step = snake[0] + current_direction
         # snake_start = snake[0]
         if (self.collision_with_boundaries(next_step) == 1 or
-                self.collision_with_self(next_step.tolist(), snake) == 1):
+                self.collision_with_self(tuple(next_step), snake) == 1):
             return 1
         else:
             return 0
 
     def collision_with_boundaries(self, snake_start):
-        if (snake_start[0] >= 600 or snake_start[0] < 0 or
-                snake_start[1] >= 400 or snake_start[1] < 0):
+        if (snake_start[0] >= self.width - self.block or
+            snake_start[0] <= self.block or
+                snake_start[1] >= self.height - self.block
+                or snake_start[1] <= self.block + self.info_zone):
             return 1
         else:
             return 0
