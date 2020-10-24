@@ -32,7 +32,7 @@ class Graphic:
                              (x, y, self.block, self.block), 1)
             pygame.draw.rect(scene, self.wall_color,
                              (x+3, y+3, self.block-6, self.block-6))
-            y = self.scene_height - self.block + self.info_zone
+            y = self.scene_height - self.block
             pygame.draw.rect(scene, self.wall_color,
                              (x, y, self.block, self.block), 1)
             pygame.draw.rect(scene, self.wall_color,
