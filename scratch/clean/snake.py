@@ -15,8 +15,8 @@ class Snake:
         self.black = (0, 0, 0)
         self.blue = (106, 133, 164)
 
-    def get_random_coords(self, start, stop):
-        value = random.randint(3 * start, stop - 2 * start)
+    def get_random_coords(self, start, stop, extra=0):
+        value = random.randint(3 * start + extra, stop - 2 * start)
         normalized_value = start * round(value / start)
         return normalized_value
 
@@ -34,12 +34,13 @@ class Snake:
                 x_food = self.get_random_coords(
                     start=self.block, stop=self.width)
                 y_food = self.get_random_coords(
-                    start=self.block, stop=self.height)
+                    start=self.block, stop=self.height, extra=60)
                 if (x_food, y_food) not in init_snake:
                     init_food = (x_food, y_food)
             return (x_head, y_head), init_snake, init_food
 
     def play_game(self, snake, food, button_direction, score, screen, clock):
+
         gr = Graphic(scene_width=self.width, scene_height=self.height,
                      info_zone=self.info_zone, block=self.block,
                      bg_color=self.bg, food_color=self.pink,
@@ -61,18 +62,18 @@ class Snake:
     def move(self, snake, food, button_direction, score):
         head_x = snake[0][0]
         head_y = snake[0][1]
-        if button_direction == 'right':
+        if button_direction == 1:
             head_x += self.block
-        elif button_direction == 'left':
+        elif button_direction == 0:
             head_x -= self.block
-        elif button_direction == 'up':
-            head_y -= self.block
-        elif button_direction == 'down':
+        elif button_direction == 2:
             head_y += self.block
+        else:
+            head_y -= self.block
         if head_x == food[0] and head_y == food[1]:
             score += 1
+            a, b, food = self.init_positions()
         else:
             snake.pop()
         snake.insert(0, (head_x, head_y))
-        a, b, food = self.init_positions()
         return snake, food, score
