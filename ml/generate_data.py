@@ -15,8 +15,8 @@ class GenerateData:
         self.info_zone = info_zone
         self.training_data_x = []
         self.training_data_y = []
-        self.training_games = 1000
-        self.steps_per_game = 2000
+        self.training_games = 100
+        self.steps_per_game = 5000
         self.clock_rate = clock_rate
         self.sn = Snake(self.width, self.height, self.block, self.info_zone)
 
@@ -60,6 +60,10 @@ class GenerateData:
         normalized_direction = np.linalg.norm(direction)
         angle = np.array(food) - np.array(snake[0])
         normalized_angle = np.linalg.norm(angle)
+        if normalized_angle == 0:
+            normalized_angle = 10
+        if normalized_direction == 0:
+            normalized_direction = 10
         food_angle = angle / normalized_angle
         snake_direction = direction / normalized_direction
         final_angle = math.atan2(
