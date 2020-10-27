@@ -20,10 +20,10 @@ class TrainSnake:
         print(model.summary())
         model.fit((np.array(self.train_x).reshape(-1, 7)),
                   (np.array(self.train_y).reshape(-1, 3)),
-                  batch_size=256,
-                  epochs=30)
+                  batch_size=512,
+                  epochs=500)
 
-        model.save_weights('model.h5')
+        model.save_weights('models/model.h5')
         model_json = model.to_json()
-        with open('model.json', 'w') as json_file:
+        with open('models/model.json', 'w') as json_file:
             json_file.write(model_json)
