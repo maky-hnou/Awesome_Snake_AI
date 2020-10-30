@@ -12,18 +12,20 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
 class TestSnakeModel:
-    def __init__(self, model_path, json_path, width, height, block, info_zone):
+    def __init__(self, model_path, json_path, width, height,
+                 block, info_zone, clock_rate):
         self.model_path = model_path
         self.width = width
         self.height = height
         self.block = block
         self.json_path = json_path
         self.info_zone = info_zone
+        self.clock_rate = clock_rate
         self.sn = Snake(width=self.width, height=self.height,
                         block=self.block, info_zone=self.info_zone)
         self.gd = GenerateData(height=self.height, width=self.width,
                                block=self.block, info_zone=self.info_zone,
-                               clock_rate=100)
+                               clock_rate=self.clock_rate)
 
     def load_model(self):
         json_file = open(self.json_path, 'r')
@@ -72,4 +74,4 @@ class TestSnakeModel:
 
             snake, food, score = self.sn.play_game(
                 snake=snake, food=food, button_direction=button_direction,
-                score=score, screen=screen, clock=50)
+                score=score, screen=screen, clock=self.clock_rate)
