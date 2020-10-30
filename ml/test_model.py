@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 
 import pygame
@@ -5,6 +7,8 @@ import tensorflow as tf
 from generate_data import GenerateData
 from snake import Snake
 from utils import Utils
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
 class TestSnakeModel:
@@ -69,10 +73,3 @@ class TestSnakeModel:
             snake, food, score = self.sn.play_game(
                 snake=snake, food=food, button_direction=button_direction,
                 score=score, screen=screen, clock=50)
-
-
-test = TestSnakeModel(model_path='models/model.h5',
-                      json_path='models/model.json',
-                      width=600, height=400, block=10,
-                      info_zone=60)
-test.run_test()
