@@ -4,6 +4,7 @@ import pygame
 import tensorflow as tf
 from generate_data import GenerateData
 from snake import Snake
+from utils import Utils
 
 
 class TestSnakeModel:
@@ -33,12 +34,14 @@ class TestSnakeModel:
         score = 3
         model = self.load_model()
         snake_head, snake, food = self.sn.init_positions()
+        utils = Utils(width=self.width, height=self.height,
+                      block=self.block, info_zone=self.info_zone)
         while True:
             (current_direction, is_front_blocked, is_left_blocked,
-             is_right_blocked) = self.gd.blocked_directions(snake)
+             is_right_blocked) = utils.blocked_directions(snake)
 
             (angle, snake_direction, normalized_angle,
-             normalized_direction) = self.gd.calculate_angle(snake, food)
+             normalized_direction) = utils.calculate_angle(snake, food)
             input_data = np.array(
                 [is_left_blocked, is_front_blocked,
                  is_right_blocked,
@@ -55,12 +58,12 @@ class TestSnakeModel:
             elif predicted_direction == 1:
                 new_direction = np.array([-new_direction[1], new_direction[0]])
 
-            button_direction = self.gd.generate_button_direction(new_direction)
+            button_direction = utils.generate_button_direction(new_direction)
 
             next_step = snake[0] + current_direction
-            if (self.gd.collision_with_boundaries(snake[0]) == 1
-                or self.gd.collision_with_self(tuple(next_step),
-                                               snake) == 1):
+            if (utils.collision_with_boundaries(snake[0]) == 1
+                    or utils.collision_with_self(tuple(next_step),
+                                                 snake) == 1):
                 break
 
             snake, food, score = self.sn.play_game(
