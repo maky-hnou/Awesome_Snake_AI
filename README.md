@@ -49,6 +49,9 @@ Activate the virtual environment: `workon snake` (To deactivate the virtual envi
 ### Run the A Star snake game:  
 To run the A star snake game, get into the a_star_algorithm folder `cd a_star_algorithm` then run `python a_star_graph.py`  
 
+*Demo:*  
+<a href="https://github.com/maky-hnou/Dog_Breed_Classifier_API/blob/master/demo/demo.gif"><img src="https://github.com/maky-hnou/Awesome_Snake_AI/blob/master/demo/a_star.gif" title="astar-demo-gif"/></a>
+
 ### Run the ML snake game:  
 The ml snake game has two modes:  
 - *Training mode*: used to make the snake play random games and generate the data that will be used to train the snake model.  
@@ -60,6 +63,9 @@ python main.py --mode <train/test>
 Choose the mode you want to run.  
 Alternatively, you can add other arguments (width, height, block, info_zone).
 
+*Demo:*  
+*Demo:*  
+<a href="https://github.com/maky-hnou/Dog_Breed_Classifier_API/blob/master/demo/demo.gif"><img src="https://github.com/maky-hnou/Awesome_Snake_AI/blob/master/demo/ml.gif" title="ml-demo-gif"/></a>
 
 [python-version]:https://img.shields.io/badge/python-3.8-brightgreen.svg
 [issues-image]:https://img.shields.io/github/issues/maky-hnou/Awesome_Snake_AI.svg
