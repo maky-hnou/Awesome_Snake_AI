@@ -28,7 +28,7 @@ We need to install some dependencies:
 
 **2. Install requirements:**  
 Before running the app, we need to install some packages.  
-- *<u>Optional</u>* Create a virtual environment:  To do things in a clean way, let's create a virtual environment to keep things isolated.  
+- *<ins>Optional</ins>* Create a virtual environment:  To do things in a clean way, let's create a virtual environment to keep things isolated.  
 Install the virtual environment wrapper: `pip3 install virtualenvwrapper`  
 Add the following lines to `~/.bashrc`:  
 ```
