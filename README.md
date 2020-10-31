@@ -28,7 +28,7 @@ We need to install some dependencies:
 
 **2. Install requirements:**  
 Before running the app, we need to install some packages.  
-- *Optional* Create a virtual environment:  To do things in a clean way, let's create a virtual environment to keep things isolated.  
+- *<u>Optional</u>* Create a virtual environment:  To do things in a clean way, let's create a virtual environment to keep things isolated.  
 Install the virtual environment wrapper: `pip3 install virtualenvwrapper`  
 Add the following lines to `~/.bashrc`:  
 ```
@@ -61,7 +61,7 @@ Choose the mode you want to run.
 Alternatively, you can add other arguments (width, height, block, info_zone).
 
 
-[python-version]:https://img.shields.io/badge/python-3.6+-brightgreen.svg
+[python-version]:https://img.shields.io/badge/python-3.8-brightgreen.svg
 [issues-image]:https://img.shields.io/github/issues/maky-hnou/Awesome_Snake_AI.svg
 [issues-url]:https://github.com/maky-hnou/Awesome_Snake_AI/issues
 [fork-image]:https://img.shields.io/github/forks/maky-hnou/Awesome_Snake_AI.svg
