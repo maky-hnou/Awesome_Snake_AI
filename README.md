@@ -15,6 +15,7 @@ The project has been organized as follows:
 - `requirements.txt`: a text file containing the needed packages to run the repo.  
 - `a_star_algorithm/`:  folder containing the Snake game implemented using the A Star graph approach.  
 - `ml/`: a folder containing the Snake game implemented using ML (Tensorflow and Keras).  
+- `ml/models/`: folder containing the pre-trained model.
 - `snake/`: a folder containing the usual Snake game, needs human interaction to be played.  
 
 ## Run the app:  
