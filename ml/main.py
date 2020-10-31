@@ -2,7 +2,7 @@ import argparse
 
 from generate_data import GenerateData
 from test_model import TestSnakeModel
-from train import TrainSnake
+from train_model import TrainSnake
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-m', '--mode', required=True,
