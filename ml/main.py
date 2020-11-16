@@ -42,3 +42,5 @@ elif mode == 'test':
                           width=width, height=height, block=block,
                           info_zone=info_zone, clock_rate=clock_rate)
     test.run_test()
+else:
+    print('Please select between train or test modes!')
