@@ -5,6 +5,36 @@ from graphic import Graphic
 
 
 class Snake:
+    """Class to create the snake and move it.
+
+    Parameters
+    ----------
+    width : int
+        The width of the scene.
+    height : int
+        The height of the scene.
+    block : int
+        The size of the blocks forming the snake and the borders.
+    info_zone : int
+        The height of the info zone.
+
+    Attributes
+    ----------
+    bg : tuple[int]
+        The background color.
+    pink : tuple
+        The food color.
+    black : tuple
+        The wall color.
+    blue : tuple
+        The snake color.
+    width
+    height
+    block
+    info_zone
+
+    """
+
     def __init__(self, width, height, block, info_zone):
         self.width = width
         self.height = height
@@ -16,11 +46,42 @@ class Snake:
         self.blue = (106, 133, 164)
 
     def get_random_coords(self, start, stop, extra=0):
+        """Generate random coordinates for food and snake at start.
+
+        Parameters
+        ----------
+        start : int
+            The beginning of the possible coordinates interval.
+        stop : int
+            The end of the possible coordinates interval.
+        extra : int
+            If not null, consider the info zone height.
+
+        Returns
+        -------
+        normalized_value: int
+            The generated coordinates.
+
+        """
         value = random.randint(3 * start + extra, stop - 2 * start)
         normalized_value = start * round(value / start)
         return normalized_value
 
     def init_positions(self):
+        """Init the snake and food positions at the start.
+
+        Returns
+        -------
+        x_head: int
+            The snake's head X coordinate.
+        y_head: int
+            The snake's head Y coordinate.
+        init_snake: tuple[int]
+            The snake's coordinates.
+        init_food: tuple[int]
+            The generated food coordinates.
+
+        """
         # Init snake
         x_head = self.get_random_coords(start=self.block, stop=self.width)
         y_head = self.get_random_coords(start=self.block, stop=self.height)
@@ -40,6 +101,33 @@ class Snake:
             return (x_head, y_head), init_snake, init_food
 
     def play_game(self, snake, food, button_direction, score, screen, clock):
+        """Launch the snake game.
+
+        Parameters
+        ----------
+        snake : tuple[int]
+            The snake coordinates.
+        food : tuple[int]
+            The food coordinates.
+        button_direction : int
+            The direction the snake will follow.
+        score : int
+            The score value.
+        screen : type
+            The scene.
+        clock : int
+            The speed of the snake.
+
+        Returns
+        -------
+        snake: tuple[int]
+            The snake's coordinates.
+        food: tuple[int]
+            The food's coordinates.
+        score: int
+            The updated score value.
+
+        """
 
         gr = Graphic(scene_width=self.width, scene_height=self.height,
                      info_zone=self.info_zone, block=self.block,
@@ -60,6 +148,29 @@ class Snake:
             return snake, food, score
 
     def move(self, snake, food, button_direction, score):
+        """Move the snake to a specified direction.
+
+        Parameters
+        ----------
+        snake : tuple[int]
+            The snake's coordinates.
+        food : tuple[int]
+            The food's coordinates.
+        button_direction : int
+            The input direction.
+        score : int
+            The score value.
+
+        Returns
+        -------
+        snake: tuple[int]
+            The snake's coordinates.
+        food: tuple[int]
+            The food's coordinates.
+        score: int
+            The updated score value.
+
+        """
         head_x = snake[0][0]
         head_y = snake[0][1]
         if button_direction == 1:
