@@ -4,11 +4,34 @@ import tensorflow as tf
 
 
 class TrainSnake:
+    """Class to create the snake CNN and train it.
+
+    Parameters
+    ----------
+    train_x : numpy ndarray
+        The input data.
+    train_y : numpy ndarray
+        The input data labels.
+
+    Attributes
+    ----------
+    train_x
+    train_y
+
+    """
+
     def __init__(self, train_x, train_y):
         self.train_x = train_x
         self.train_y = train_y
 
     def create_training_model(self):
+        """Create and train the snake model.
+
+        Returns
+        -------
+        None.
+
+        """
         model = tf.keras.models.Sequential()
         model.add(tf.keras.layers.Dense(units=9, input_dim=7))
         model.add(tf.keras.layers.Dense(units=15, activation='relu'))
