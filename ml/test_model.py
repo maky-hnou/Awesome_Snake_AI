@@ -4,7 +4,6 @@ import numpy as np
 
 import pygame
 import tensorflow as tf
-from generate_data import GenerateData
 from snake import Snake
 from utils import Utils
 
@@ -12,6 +11,39 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
 class TestSnakeModel:
+    """Class to load the model and run games.
+
+    Parameters
+    ----------
+    model_path : str
+        The path to the saved model.
+    json_path : str
+        The path to the model architecture.
+    width : int
+        The width of the scene.
+    height : int
+        The height of the scene.
+    block : int
+        The size of the blocks forming the snake and the walls.
+    info_zone : int
+        The info zone height.
+    clock_rate : int
+        The speed of the snake.
+
+    Attributes
+    ----------
+    sn : class
+        The class that creates the snake.
+    model_path
+    width
+    height
+    block
+    json_path
+    info_zone
+    clock_rate
+
+    """
+
     def __init__(self, model_path, json_path, width, height,
                  block, info_zone, clock_rate):
         self.model_path = model_path
@@ -23,11 +55,16 @@ class TestSnakeModel:
         self.clock_rate = clock_rate
         self.sn = Snake(width=self.width, height=self.height,
                         block=self.block, info_zone=self.info_zone)
-        self.gd = GenerateData(height=self.height, width=self.width,
-                               block=self.block, info_zone=self.info_zone,
-                               clock_rate=self.clock_rate)
 
     def load_model(self):
+        """Load the pre-trained model.
+
+        Returns
+        -------
+        model: tf.keras.models
+            The loaded model
+
+        """
         json_file = open(self.json_path, 'r')
         loaded_json_model = json_file.read()
         model = tf.keras.models.model_from_json(loaded_json_model)
@@ -35,6 +72,13 @@ class TestSnakeModel:
         return model
 
     def run_test(self):
+        """Launch the game.
+
+        Returns
+        -------
+        None.
+
+        """
         pygame.init()
         screen = pygame.display.set_mode((self.width, self.height))
         score = 3
