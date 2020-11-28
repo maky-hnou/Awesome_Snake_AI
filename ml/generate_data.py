@@ -44,9 +44,9 @@ class GenerateData:
 
     """
 
-    def __init__(self, height, width, block, info_zone, clock_rate):
-        self.height = height
+    def __init__(self, width, height, block, info_zone, clock_rate):
         self.width = width
+        self.height = height
         self.block = block
         self.info_zone = info_zone
         self.training_data_x = []
