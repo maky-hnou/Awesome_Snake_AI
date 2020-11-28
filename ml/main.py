@@ -15,7 +15,7 @@ parser.add_argument('-b', '--block', default=10,
                     help='The size of the blocks forming the snake and the'
                     'borders')
 parser.add_argument('-z', '--zone', default=60,
-                    help='the height of the info zone')
+                    help='The height of the info zone')
 parser.add_argument('-c', '--clock', default=100,
                     help='The clock rate used for pygame')
 args = parser.parse_args()
